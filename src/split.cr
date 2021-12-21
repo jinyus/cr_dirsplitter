@@ -8,9 +8,7 @@ def split_dir(dir : String, max_bytes : UInt64, prefix : String)
   base_dir_path = Path.new(dir)
 
   Walk::Down.new(dir).each do |path|
-    if !File.file?(path)
-      next
-    end
+    next if !File.file?(path)
 
     size = File.size(path)
 
@@ -33,14 +31,9 @@ def split_dir(dir : String, max_bytes : UInt64, prefix : String)
     ))
 
     begin
-      if !Dir.exists?(new_path.parent)
-        Dir.mkdir_p(new_path.parent)
-      end
+      Dir.mkdir_p(new_path.parent) if !Dir.exists?(new_path.parent)
 
-      File.rename(
-        path.expand.to_s,
-        new_path.expand.to_s
-      )
+      File.rename(path.expand.to_s, new_path.expand.to_s)
 
       files_moved += 1
     rescue exception
@@ -48,25 +41,21 @@ def split_dir(dir : String, max_bytes : UInt64, prefix : String)
       failed_ops += 1
       tracker[current_part] -= size
 
-      if decrement_if_failed
-        current_part -= 1
-      end
+      current_part -= 1 if decrement_if_failed
     end
   end
 
-  if files_moved == 0
-    current_part = 0
-  end
+  current_part = 0 if files_moved == 0
 
   puts "Parts created: #{current_part}"
   puts "Files moved: #{files_moved}"
   puts "Failed Operations: #{failed_ops}"
 
-  if current_part > 0 && !prefix.blank?
-    if current_part == 1
-      puts %(Tar Command : tar -cf "#{prefix}part1.tar" "part1"; done)
-    else
-      puts %(Tar Command : for n in {{1..#{current_part}}}; do tar -cf "#{prefix}part$n.tar" "part$n"; done)
-    end
+  exit if current_part == 0 || prefix.blank?
+
+  if current_part == 1
+    puts %(Tar Command : tar -cf "#{prefix}part1.tar" "part1"; done)
+  else
+    puts %(Tar Command : for n in {{1..#{current_part}}}; do tar -cf "#{prefix}part$n.tar" "part$n"; done)
   end
 end
