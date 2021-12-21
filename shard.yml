@@ -1,0 +1,17 @@
+name: dirsplitter
+version: 0.1.0
+
+authors:
+  - jinyus <mail@gmail.com>
+
+targets:
+  dirsplitter:
+    main: src/dirsplitter.cr
+
+dependencies:
+  walk:
+    github: alexherbo2/walk.cr
+
+crystal: 1.2.2
+
+license: MIT

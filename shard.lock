@@ -1,0 +1,6 @@
+version: 2.0
+shards:
+  walk:
+    git: https://github.com/alexherbo2/walk.cr.git
+    version: 0.1.0+git.commit.765d758c0f966cccc98c1d81c7ccd0c1f71928e3
+
