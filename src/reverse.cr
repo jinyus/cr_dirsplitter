@@ -48,13 +48,12 @@ def reverse_split(dir : String)
 
   if should_delete
     part_dirs_to_delete.each do |part|
-      #   puts part
       safe_delete(part)
     end
   end
 end
 
-# recurisively delete a tree of empty directories
+# recursively delete a tree of empty directories
 def safe_delete(dir : Path, delete_parent = false)
   if Dir.empty?(dir)
     Dir.delete(dir)
