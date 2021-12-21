@@ -14,14 +14,15 @@ def split_dir(dir : String, max_bytes : UInt64, prefix : String)
 
     decrement_if_failed = false
 
-    current_part_size = tracker.fetch(current_part, 0)
+    current_part_size = tracker.fetch(current_part, 0.to_u64)
 
     if current_part_size > 0 && current_part_size + size > max_bytes
       current_part += 1
+      current_part_size = 0.to_u64
       decrement_if_failed = true
     end
 
-    tracker[current_part] = (tracker.has_key?(current_part) ? current_part_size + size : size).to_u64
+    tracker[current_part] = current_part_size + size
 
     part_dir = base_dir_path.join("part#{current_part}")
 
