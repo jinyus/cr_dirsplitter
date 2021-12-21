@@ -11,16 +11,13 @@ def reverse_split(dir : String)
     path = base_dir_path.join(file)
     is_part_dir = File.directory?(path) && /part\d+/.matches?(file)
 
-    if !is_part_dir
-      next
-    end
+    next if !is_part_dir
 
     part_dirs_to_delete << path
 
     Walk::Down.new(path).each do |inner_file|
-      if !File.file?(inner_file)
-        next
-      end
+      next if !File.file?(inner_file)
+
       dest = Path.new(
         inner_file.expand.to_s.sub(
           path.to_s,
@@ -29,9 +26,7 @@ def reverse_split(dir : String)
       )
 
       begin
-        if !Dir.exists?(dest.parent)
-          Dir.mkdir_p(dest.parent)
-        end
+        Dir.mkdir_p(dest.parent) if !Dir.exists?(dest.parent)
 
         File.rename(inner_file.expand.to_s, dest.to_s)
       rescue exception
