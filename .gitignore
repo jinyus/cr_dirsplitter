@@ -4,5 +4,5 @@
 /.shards/
 *.dwarf
 /sample/
-cr_dirsplitter_0.0.1_linux_amd64
 dirsplitter
+*.gz
