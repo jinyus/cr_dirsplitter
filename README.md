@@ -1,5 +1,5 @@
 # dirsplitter
-Split large directories into parts of a specified maximum size while maintains structure. This is a crystal port of my dirsplitter tool. This is currently the most updated(correct) version.
+Split large directories into parts of a specified maximum size while maintaining structure. This is a crystal port of my dirsplitter tool. This is currently the most updated(correct) version.
 
 [Go version](https://github.com/jinyus/dirsplitter)<br>
 [Nim Version](https://github.com/jinyus/nim_dirsplitter)
