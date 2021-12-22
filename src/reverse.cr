@@ -49,7 +49,7 @@ def reverse_split(dir : String)
 end
 
 # recursively delete a tree of empty directories
-def safe_delete(dir : Path, delete_parent = false)
+def safe_delete(dir : Path)
   if Dir.empty?(dir)
     Dir.delete(dir)
   else
