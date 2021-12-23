@@ -1,6 +1,7 @@
 # dirsplitter
 Split large directories into parts of a specified maximum size while maintaining structure. This is a crystal port of my dirsplitter tool.
 
+[F# Version](https://github.com/jinyus/fs_dirsplitter)<br>
 [Go version](https://github.com/jinyus/dirsplitter)<br>
 [Nim Version](https://github.com/jinyus/nim_dirsplitter)
 
